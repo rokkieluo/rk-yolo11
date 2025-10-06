@@ -2,7 +2,7 @@
 
 import inspect
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any, Union
 
 import numpy as np
 import torch
@@ -307,11 +307,19 @@ class Model(torch.nn.Module):
 
         print("===========  onnx =========== ")
         import torch
+
         dummy_input = torch.randn(1, 3, 640, 640)
         input_names = ["data"]
         output_names = ["reg1", "cls1", "reg2", "cls2", "reg3", "cls3"]
-        torch.onnx.export(self.model, dummy_input, "C:/Users/15346/Desktop/yolov5/yolo11/ultralytics-main/yolov11n.onnx",
-                          verbose=False, input_names=input_names, output_names=output_names, opset_version=11)
+        torch.onnx.export(
+            self.model,
+            dummy_input,
+            "C:/Users/15346/Desktop/yolov5/yolo11/ultralytics-main/yolov11n.onnx",
+            verbose=False,
+            input_names=input_names,
+            output_names=output_names,
+            opset_version=11,
+        )
         print("======================== convert onnx Finished! .... ")
 
     def _check_is_pytorch_model(self) -> None:
@@ -508,7 +516,7 @@ class Model(torch.nn.Module):
         stream: bool = False,
         predictor=None,
         **kwargs: Any,
-    ) -> List[Results]:
+    ) -> list[Results]:
         """
         Perform predictions on the given image source using the YOLO model.
 
@@ -569,7 +577,7 @@ class Model(torch.nn.Module):
         stream: bool = False,
         persist: bool = False,
         **kwargs: Any,
-    ) -> List[Results]:
+    ) -> list[Results]:
         """
         Conduct object tracking on the specified input source using the registered trackers.
 
@@ -889,7 +897,7 @@ class Model(torch.nn.Module):
         return self
 
     @property
-    def names(self) -> Dict[int, str]:
+    def names(self) -> dict[int, str]:
         """
         Retrieve the class names associated with the loaded model.
 
@@ -1042,7 +1050,7 @@ class Model(torch.nn.Module):
             self.callbacks[event] = [callbacks.default_callbacks[event][0]]
 
     @staticmethod
-    def _reset_ckpt_args(args: Dict[str, Any]) -> Dict[str, Any]:
+    def _reset_ckpt_args(args: dict[str, Any]) -> dict[str, Any]:
         """
         Reset specific arguments when loading a PyTorch model checkpoint.
 
