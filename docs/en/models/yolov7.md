@@ -375,7 +375,7 @@ model = YOLO("yolov7-ultralytics.engine", task="detect")
 results = model(ASSETS / "bus.jpg")
 ```
 
-## Citations and Acknowledgements
+## Citations and Acknowledgments
 
 We would like to acknowledge the YOLOv7 authors for their significant contributions in the field of real-time object detection:
 
