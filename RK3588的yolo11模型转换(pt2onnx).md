@@ -15,21 +15,30 @@ git clone https://github.com/rokkieluo/ultralytics-main.git
 找到第313行，将导出路径设置为你自己的导出路径和导出文件名
 
 ```python
-torch.onnx.export(self.model, dummy_input,"C:/Users/15346/Desktop/yolov5/yolo11/ultralytics-main/yolov11n.onnx", verbose=False, input_names=input_names, output_names=output_names, opset_version=11)
+torch.onnx.export(
+    self.model,
+    dummy_input,
+    "C:/Users/15346/Desktop/yolov5/yolo11/ultralytics-main/yolov11n.onnx",
+    verbose=False,
+    input_names=input_names,
+    output_names=output_names,
+    opset_version=11,
+)
 ```
 
 第三步：更改export.py
 
 ```python
 from ultralytics import YOLO
-model = YOLO(model='yolo11n.pt')  # load a pretrained model (recommended for training)
-results = model(task='detect', source='./test.jpg', save=True)  # predict on an image
+
+model = YOLO(model="yolo11n.pt")  # load a pretrained model (recommended for training)
+results = model(task="detect", source="./test.jpg", save=True)  # predict on an image
 ```
 
 将代码中的
 
 ```python
-model = YOLO(model='yolo11n.pt')
+model = YOLO(model="yolo11n.pt")
 ```
 
 改为你自己的模型路径
@@ -47,13 +56,13 @@ python export.py
 打开simplify_onnx.py，更改模型路径
 
 ```python
-model = onnx.load('yolov11n.onnx') #改为你自己刚刚导出的onnx模型路径
+model = onnx.load("yolov11n.onnx")  # 改为你自己刚刚导出的onnx模型路径
 ```
 
 更改导出路径
 
 ```python
-onnx.save(model_simp, 'yolov11n-sim.onnx') #改为你自己的导出模型名
+onnx.save(model_simp, "yolov11n-sim.onnx")  # 改为你自己的导出模型名
 ```
 
 第六步：运行
